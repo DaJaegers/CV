@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CV - Luis David Silvestre</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+        <style>
+            :root {
+                --primary-color: #2c3e50;
+                --secondary-color: #3498db;
+                --accent-color: #e74c3c;
+                --light-color: #ecf0f1;
+                --dark-color: #2c3e50;
+                --text-color: #333;
+                --bg-color: #f5f5f5;
+                --card-bg: white;
+                --section-padding: 1.5rem;
+                --shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                --date-color: #3498db;
+            }
+
+            .dark-mode {
+                --primary-color: #3498db;
+                --secondary-color: #2c3e50;
+                --text-color: #ecf0f1;
+                --bg-color: #1a1a1a;
+                --card-bg: #2d2d2d;
+                --light-color: #3d5a80;
+                --dark-color: #e9ecef;
+                --date-color: #4fc3f7;
+                --shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            }
+
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                color: var(--text-color);
+                background-color: var(--bg-color);
+                padding: 0;
+                margin: 0;
+            }
+
+            .cv-container {
+                max-width: 1000px;
+                margin: 2rem auto;
+                background: var(--card-bg);
+                box-shadow: var(--shadow);
+                border-radius: 8px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            /* Estilos específicos para PDF */
+            @media print {
+                .cv-container {
+                    box-shadow: none;
+                    border-radius: 0;
+                    margin: 0;
+                    max-width: 100%;
+                }
+
+                body {
+                    background: white;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+
+            header {
+                background: var(--primary-color);
+                color: white;
+                padding: 2.5rem;
+                text-align: center;
+                position: relative;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+                text-transform: uppercase;
+            }
+
+            .title {
+                font-size: 1.2rem;
+                font-weight: normal;
+                color: var(--light-color);
+                margin-bottom: 1rem;
+            }
+
+            .contact-info {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .contact-item a {
+                color: white;
+                text-decoration: none;
+            }
+
+            .contact-item a:hover {
+                text-decoration: underline;
+            }
+
+            .main-content {
+                display: flex;
+                padding: 0;
+            }
+
+            .left-column {
+                flex: 1;
+                background: var(--light-color);
+                padding: var(--section-padding);
+            }
+
+            .right-column {
+                flex: 2;
+                padding: var(--section-padding);
+            }
+
+            .section {
+                margin-bottom: 2rem;
+            }
+
+            .section-title {
+                color: var(--primary-color);
+                border-bottom: 2px solid var(--secondary-color);
+                padding-bottom: 0.5rem;
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+            }
+
+            .experience-item,
+            .education-item {
+                margin-bottom: 1.5rem;
+            }
+
+            .item-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 0.5rem;
+            }
+
+            .item-title {
+                font-weight: bold;
+                color: var(--dark-color);
+                font-size: 1.1rem;
+            }
+
+            .item-date {
+                color: var(--date-color);
+                font-weight: 500;
+                white-space: nowrap;
+                margin-left: 1rem;
+            }
+
+            .item-subtitle {
+                color: var(--accent-color);
+                margin-bottom: 0.5rem;
+                font-style: italic;
+            }
+
+            .skills-paragraph {
+                line-height: 1.6;
+                padding: 0.5rem 0;
+                color: var(--text-color);
+            }
+
+            .education-item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+            }
+
+            .education-name {
+                font-weight: bold;
+                color: var(--dark-color);
+            }
+
+            .education-field {
+                color: #777;
+            }
+
+            .dark-mode .education-field {
+                color: #bbb;
+            }
+
+            .action-buttons {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                z-index: 100;
+            }
+
+            .action-button {
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                transition: transform 0.3s, background-color 0.3s;
+            }
+
+            .action-button:hover {
+                transform: scale(1.1);
+                background: var(--secondary-color);
+            }
+
+            .whatsapp-button {
+                background: #25d366;
+            }
+
+            .email-button {
+                background: #d44638;
+            }
+
+            .theme-button {
+                background: var(--accent-color);
+            }
+
+            .download-button {
+                background: #2c3e50;
+            }
+
+            .print-button {
+                background: #17a2b8;
+            }
+
+            .progress-bar {
+                height: 5px;
+                width: 100%;
+                background: #ddd;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1000;
+            }
+
+            .progress-bar-fill {
+                height: 100%;
+                background: var(--secondary-color);
+                width: 0%;
+            }
+
+            @media (max-width: 768px) {
+                .main-content {
+                    flex-direction: column;
+                }
+
+                header {
+                    padding: 1.5rem;
+                }
+
+                h1 {
+                    font-size: 2rem;
+                }
+
+                .contact-info {
+                    flex-direction: column;
+                    gap: 0.8rem;
+                }
+
+                .item-header {
+                    flex-direction: column;
+                }
+
+                .item-date {
+                    margin-left: 0;
+                }
+
+                .action-buttons {
+                    bottom: 10px;
+                    right: 10px;
+                }
+            }
+
+            @media print {
+                .action-buttons,
+                .back-to-top,
+                .progress-bar {
+                    display: none;
+                }
+
+                body {
+                    background: white;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                .cv-container {
+                    box-shadow: none;
+                    margin: 0;
+                    max-width: 100%;
+                    border-radius: 0;
+                }
+
+                .left-column {
+                    background: #f8f9fa !important;
+                }
+
+                .section-title {
+                    color: #2c3e50 !important;
+                    border-bottom-color: #3498db !important;
+                }
+
+                .item-title,
+                .education-name {
+                    color: #2c3e50 !important;
+                }
+
+                .item-date {
+                    color: #3498db !important;
+                }
+
+                .item-subtitle {
+                    color: #e74c3c !important;
+                }
+
+                header {
+                    padding: 1.5rem !important;
+                }
+            }
+
+            .back-to-top {
+                position: fixed;
+                bottom: 90px;
+                right: 20px;
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                cursor: pointer;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                z-index: 99;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .back-to-top.visible {
+                opacity: 1;
+            }
+
+            /* Estilo para el modal de carga */
+            .pdf-loading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+                color: white;
+                font-size: 1.2rem;
+            }
+
+            .spinner {
+                border: 5px solid #f3f3f3;
+                border-top: 5px solid #3498db;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: spin 1s linear infinite;
+                margin-bottom: 20px;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="progress-bar">
+            <div class="progress-bar-fill"></div>
+        </div>
+
+        <div class="cv-container">
+            <header>
+                <h1>Luis David Silvestre</h1>
+                <p class="title">Técnico de Mantenimiento</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:6141379790">614 137-9790</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:iamd.s@hotmail.com">iamd.s@hotmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Cesar Sandino, Diego Lucero</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="main-content">
+                <div class="left-column">
+                    <section class="section">
+                        <h2 class="section-title">Sobre Mí</h2>
+                        <p>
+                            Técnico especializado en mantenimiento industrial, operación
+                            de máquinas CNC (Fanuc, Mazatrol, Okuma, Haas) y
+                            automatización. Con amplia experiencia en sistemas eléctricos
+                            (media/alta tensión), electromecánicos, hidráulicos y
+                            neumáticos, así como en la capacitación de personal.
+                        </p>
+                    </section>
+
+                    <section class="section">
+                        <h2 class="section-title">
+                            Habilidades de Desarrollo y Automatización
+                        </h2>
+                        <ul class="skills-list">
+                            <li class="skill-item">
+                                <div class="skill-category">Desarrollo Backend:</div>
+                                <div class="skill-details">
+                                    Python, lógica de programación, automatización de
+                                    tareas.
+                                </div>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-category">Bases de Datos:</div>
+                                <div class="skill-details">
+                                    Diseño y consultas SQL (MySQL/PostgreSQL).
+                                </div>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-category">Desarrollo Web:</div>
+                                <div class="skill-details">
+                                    HTML5, CSS3 para la construcción de interfaces
+                                    frontend.
+                                </div>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-category">Control de Versiones:</div>
+                                <div class="skill-details">
+                                    Git y GitHub para la gestión de proyectos.
+                                </div>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-category">Contexto Único:</div>
+                                <div class="skill-details">
+                                    Experiencia práctica en entornos industriales, lo que
+                                    proporciona una comprensión profunda de los procesos y
+                                    sistemas que pueden ser optimizados mediante software
+                                    y automatización.
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="section">
+                        <h2 class="section-title">Educación</h2>
+                        <div class="education-item">
+                            <div>
+                                <div class="education-name">CETIS 86</div>
+                                <div class="education-field">
+                                    Mantenimiento industrial
+                                </div>
+                            </div>
+                        </div>
+                        <div class="education-item">
+                            <div>
+                                <div class="education-name">CECATI 137</div>
+                                <div class="education-field">Máquinas y herramientas</div>
+                            </div>
+                        </div>
+                        <div class="education-item">
+                            <div>
+                                <div class="education-name">Desarrollo Backend</div>
+                                <div class="education-field">Formación en curso</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="right-column">
+                    <section class="section">
+                        <h2 class="section-title">Experiencia Laboral</h2>
+
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Técnico de Mantenimiento</div>
+                                <div class="item-date">AGO 2024 - ABR 2025</div>
+                            </div>
+                            <div class="item-subtitle">Maese Ingeniería</div>
+                            <p>
+                                Mantenimiento preventivo y correctivo a redes eléctricas
+                                en industria y plantas generadoras. Termografía a los
+                                componentes propensos a tener pérdidas de energía,
+                                interpretación y análisis de resultados para crear un
+                                reporte de anomalías para el cliente. Inspección y torque
+                                en cortacircuitos de acometida y paquete de medición.
+                                Realización de pruebas críticas para garantizar el
+                                correcto funcionamiento del sistema eléctrico (resistencia
+                                de aislamiento, resistencia entre contactos, resistencia
+                                del suelo para descargas a tierra, factor de disipación en
+                                transformadores, corriente de extracion, TTR).
+                                Mantenimiento a banco de capacitores. Muestreo de aceite
+                                de transformador para su análisis (BPC's, DGA, GOC, CF).
+                            </p>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Técnico de Mantenimiento</div>
+                                <div class="item-date">ENE 2024 - JUL 2024</div>
+                            </div>
+                            <div class="item-subtitle">Ezair</div>
+                            <p>
+                                Mantenimiento preventivo y correctivo a equipos
+                                industriales (CNC, hornos, cabinas de pintura,
+                                extractores), instalaciones eléctricas y neumáticas,
+                                mantenimiento a equipo de refrigeración (aire lavado y
+                                unidad paquete).
+                            </p>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">
+                                    Sr. Automation Engineering Technician
+                                </div>
+                                <div class="item-date">FEB 2023 - DIC 2023</div>
+                            </div>
+                            <div class="item-subtitle">Jabil</div>
+                            <p>
+                                Soporte en el área de diseño de equipo automatizado en sus
+                                diversas áreas, mecánica, neumática, eléctrico, aplicación
+                                de software. Programación de robots, mantenimiento y
+                                mejoras en desplazamientos para elevar eficiencia. Ajustes
+                                de cámaras de visión para minimizar errores.
+                            </p>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Técnico de Mantenimiento</div>
+                                <div class="item-date">AGO 2020 - JUN 2022</div>
+                            </div>
+                            <div class="item-subtitle">Ford Motor Company</div>
+                            <p>
+                                Diagnóstico y control de máquinas, equipos e
+                                instalaciones. Organización de las operaciones de
+                                mantenimiento. Realización de operaciones de mantenimiento
+                                correctivo o preventivo. Participación en la mejora
+                                continua de los procesos de mantenimiento en la empresa.
+                                Servicio a máquinas de CNC, desde ajustes al cambiar
+                                herramental hasta cambios de servomotores, husillos, etc.
+                                Reparación de gantrys transportadores, desde ajustes en su
+                                programación hasta cambio de piñones y cremalleras.
+                            </p>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Técnico CNC</div>
+                                <div class="item-date">ENE 2020 - JUL 2020</div>
+                            </div>
+                            <div class="item-subtitle">Superior Industries</div>
+                            <p>
+                                Manejo de tornos y centros de maquinado. Realización
+                                constante de setup de nuevas piezas. Soporte en
+                                programación y mejora de programas para tener mayor
+                                duración de herramientas y mejores acabados. Soporte a
+                                compañeros en setups complejos. Interpretación de planos.
+                                Solución de problemas involucrados con el maquinado.
+                                Entrenamiento de personal. Mantenimiento preventivo a
+                                maquinaria de CNC.
+                            </p>
+                        </div>
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Técnico de Mantenimiento</div>
+                                <div class="item-date">ENE 2019 - DIC 2019</div>
+                            </div>
+                            <div class="item-subtitle">Safran Seats</div>
+                            <p>
+                                Identificación de las causas posibles de cualquier mal
+                                funcionamiento en los equipos. Soporte a líneas de
+                                producción. Mantenimiento y registro de los suministros
+                                para atender eficazmente las reparaciones más comunes.
+                                Mantenimiento preventivo a centros de maquinado, routers,
+                                termo formadoras, hornos, herramientas manuales de
+                                producción. Arranque de planta.
+                            </p>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Técnico CNC</div>
+                                <div class="item-date">ENE 2017 - ENE 2019</div>
+                            </div>
+                            <div class="item-subtitle">Daniel</div>
+                            <p>
+                                Manejo de tornos y centros de maquinado. Realización
+                                constante de setup de nuevas piezas. Soporte en
+                                programación y mejora de programas para tener mayor
+                                duración de herramientas y mejores acabados. Soporte a
+                                compañeros en setups complejos. Interpretación de planos.
+                                Uso de CMM. Solución de problemas involucrados con el
+                                maquinado. Entrenamiento de personal. Mantenimiento
+                                preventivo a maquinaria de CNC.
+                            </p>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="item-header">
+                                <div class="item-title">Técnico Maquinista</div>
+                                <div class="item-date">2013 - 2015</div>
+                            </div>
+                            <div class="item-subtitle">Honeywell Aerospace</div>
+                            <p>
+                                Trabajo en centros de maquinado de 5 ejes. Experiencia en
+                                centros de maquinado de 3, 4 y 5 ejes verticales y
+                                horizontales. Lectura y entendimiento de planos,
+                                tolerancias geométricas y dimensionales. Uso de
+                                instrumentos de medición (Vernier, micrómetros,
+                                indicadores de caratula, dial bore). Realización constante
+                                de setup de nuevas piezas. Ajuste de herramientas, offsets
+                                y corrección de programas. Uso de TPM, pokayokes, SMEDs.
+                                Auditorías de 5s. Entrenamiento de personal.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button
+                class="action-button whatsapp-button"
+                id="whatsappBtn"
+                title="Enviar mensaje por WhatsApp"
+            >
+                <i class="fab fa-whatsapp"></i>
+            </button>
+            <button
+                class="action-button email-button"
+                id="emailBtn"
+                title="Enviar correo electrónico"
+            >
+                <i class="fas fa-envelope"></i>
+            </button>
+            <button
+                class="action-button theme-button"
+                id="themeBtn"
+                title="Cambiar modo claro/oscuro"
+            >
+                <i class="fas fa-moon"></i>
+            </button>
+            <button
+                class="action-button download-button"
+                id="downloadBtn"
+                title="Descargar como PDF"
+            >
+                <i class="fas fa-download"></i>
+            </button>
+            <button class="action-button print-button" id="printBtn" title="Imprimir CV">
+                <i class="fas fa-print"></i>
+            </button>
+        </div>
+
+        <button class="back-to-top" id="backToTop" title="Volver arriba">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Botones de acción
+                const whatsappBtn = document.getElementById("whatsappBtn");
+                const emailBtn = document.getElementById("emailBtn");
+                const themeBtn = document.getElementById("themeBtn");
+                const downloadBtn = document.getElementById("downloadBtn");
+                const printBtn = document.getElementById("printBtn");
+                const backToTop = document.getElementById("backToTop");
+
+                // WhatsApp
+                whatsappBtn.addEventListener("click", function () {
+                    const phoneNumber = "6141379790";
+                    const message =
+                        "Hola Luis David, vi tu CV y me gustaría contactarte.";
+                    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+                        message
+                    )}`;
+                    window.open(url, "_blank");
+                });
+
+                // Email
+                emailBtn.addEventListener("click", function () {
+                    const email = "iamd.s@hotmail.com";
+                    const subject = "Contacto desde tu CV online";
+                    const body =
+                        "Hola Luis David,\n\nVi tu CV online y me gustaría contactarte para...";
+                    const url = `mailto:${email}?subject=${encodeURIComponent(
+                        subject
+                    )}&body=${encodeURIComponent(body)}`;
+                    window.location.href = url;
+                });
+
+                // Tema claro/oscuro
+                themeBtn.addEventListener("click", function () {
+                    document.body.classList.toggle("dark-mode");
+                    const icon = themeBtn.querySelector("i");
+                    if (document.body.classList.contains("dark-mode")) {
+                        icon.classList.remove("fa-moon");
+                        icon.classList.add("fa-sun");
+                        themeBtn.setAttribute("title", "Cambiar a modo claro");
+                    } else {
+                        icon.classList.remove("fa-sun");
+                        icon.classList.add("fa-moon");
+                        themeBtn.setAttribute("title", "Cambiar a modo oscuro");
+                    }
+                });
+
+                // Descargar PDF con márgenes optimizados
+                downloadBtn.addEventListener("click", function () {
+                    // Mostrar indicador de carga
+                    const loadingDiv = document.createElement("div");
+                    loadingDiv.className = "pdf-loading";
+                    loadingDiv.innerHTML = `
+                    <div class="spinner"></div>
+                    <p>Generando PDF, por favor espere...</p>
+                `;
+                    document.body.appendChild(loadingDiv);
+
+                    // Obtener el elemento a convertir
+                    const element = document.querySelector(".cv-container");
+
+                    // Opciones optimizadas para PDF
+                    const options = {
+                        margin: [5, 5, 5, 5], // Márgenes reducidos: [top, right, bottom, left]
+                        filename: "CV_Luis_David_Silvestre.pdf",
+                        image: {
+                            type: "jpeg",
+                            quality: 0.98,
+                        },
+                        html2canvas: {
+                            scale: 2,
+                            useCORS: true,
+                            logging: false,
+                        },
+                        jsPDF: {
+                            unit: "mm",
+                            format: "a4",
+                            orientation: "portrait",
+                        },
+                        pagebreak: { mode: "avoid-all" },
+                    };
+
+                    // Generar PDF
+                    html2pdf()
+                        .set(options)
+                        .from(element)
+                        .save()
+                        .then(() => {
+                            // Eliminar el indicador de carga cuando termine
+                            document.body.removeChild(loadingDiv);
+                        })
+                        .catch((error) => {
+                            console.error("Error al generar PDF:", error);
+                            document.body.removeChild(loadingDiv);
+                            alert(
+                                "Error al generar el PDF. Por favor, intente nuevamente."
+                            );
+                        });
+                });
+
+                // Imprimir
+                printBtn.addEventListener("click", function () {
+                    window.print();
+                });
+
+                // Botón volver arriba
+                window.addEventListener("scroll", function () {
+                    if (window.pageYOffset > 300) {
+                        backToTop.classList.add("visible");
+                    } else {
+                        backToTop.classList.remove("visible");
+                    }
+
+                    // Barra de progreso
+                    const winHeight = window.innerHeight;
+                    const docHeight = document.documentElement.scrollHeight;
+                    const scrollTop = window.pageYOffset;
+                    const trackLength = docHeight - winHeight;
+                    const progress = (scrollTop / trackLength) * 100;
+                    document.querySelector(".progress-bar-fill").style.width =
+                        progress + "%";
+                });
+
+                backToTop.addEventListener("click", function () {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth",
+                    });
+                });
+
+                // Efecto de carga inicial
+                setTimeout(function () {
+                    document.body.style.opacity = 1;
+                }, 100);
+            });
+        </script>
+    </body>
+</html>
