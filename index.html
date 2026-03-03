@@ -161,13 +161,13 @@
         }
 
         .left-column {
-            flex: 1;
-            background: var(--light-color);
+            flex: 2;
             padding: var(--section-padding);
         }
 
         .right-column {
-            flex: 2;
+            flex: 1;
+            background: var(--light-color);
             padding: var(--section-padding);
         }
 
@@ -351,6 +351,9 @@
         }
 
         @media print {
+            @page {
+                margin: 0;
+            }
 
             .action-buttons,
             .progress-bar {
@@ -359,7 +362,7 @@
 
             body {
                 background: white;
-                padding: 0;
+                padding: 1cm;
                 margin: 0;
             }
 
@@ -399,8 +402,28 @@
                 color: #e74c3c !important;
             }
 
+            header h1,
+            header .title,
+            .contact-item,
+            .contact-item a,
+            .contact-item i,
+            .contact-item span {
+                color: black !important;
+            }
+
             header {
                 padding: 1.5rem !important;
+                background: white !important;
+                border-bottom: 2px solid #eee;
+            }
+
+            .left-column,
+            .right-column {
+                background: white !important;
+            }
+
+            .right-column {
+                background: #f8f9fa !important;
             }
         }
     </style>
@@ -445,75 +468,6 @@
                     </p>
                 </section>
 
-                <section class="section">
-                    <h2 class="section-title">
-                        Habilidades de Desarrollo y Automatización
-                    </h2>
-                    <ul class="skills-list">
-                        <li class="skill-item">
-                            <div class="skill-category">Desarrollo Backend:</div>
-                            <div class="skill-details">
-                                Python, lógica de programación, automatización de
-                                tareas.
-                            </div>
-                        </li>
-                        <li class="skill-item">
-                            <div class="skill-category">Bases de Datos:</div>
-                            <div class="skill-details">
-                                Diseño y consultas SQL (MySQL/PostgreSQL).
-                            </div>
-                        </li>
-                        <li class="skill-item">
-                            <div class="skill-category">Desarrollo Web:</div>
-                            <div class="skill-details">
-                                HTML5, CSS3 para la construcción de interfaces
-                                frontend.
-                            </div>
-                        </li>
-                        <li class="skill-item">
-                            <div class="skill-category">Control de Versiones:</div>
-                            <div class="skill-details">
-                                Git y GitHub para la gestión de proyectos.
-                            </div>
-                        </li>
-                        <li class="skill-item">
-                            <div class="skill-category">Contexto Único:</div>
-                            <div class="skill-details">
-                                Experiencia práctica en entornos industriales, lo que
-                                proporciona una comprensión profunda de los procesos y
-                                sistemas que pueden ser optimizados mediante software
-                                y automatización.
-                            </div>
-                        </li>
-                    </ul>
-                </section>
-
-                <section class="section">
-                    <h2 class="section-title">Educación</h2>
-                    <div class="education-item">
-                        <div>
-                            <div class="education-name">CETIS 86</div>
-                            <div class="education-field">
-                                Mantenimiento industrial
-                            </div>
-                        </div>
-                    </div>
-                    <div class="education-item">
-                        <div>
-                            <div class="education-name">CECATI 137</div>
-                            <div class="education-field">Máquinas y herramientas</div>
-                        </div>
-                    </div>
-                    <div class="education-item">
-                        <div>
-                            <div class="education-name">Desarrollo De Software</div>
-                            <div class="education-field">Formación en curso</div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <div class="right-column">
                 <section class="section">
                     <h2 class="section-title">Experiencia Laboral</h2>
 
@@ -627,6 +581,75 @@
                             maquinaria de CNC.
                         </p>
                     </div>
+                </section>
+            </div>
+
+            <div class="right-column">
+                <section class="section">
+                    <h2 class="section-title">Educación</h2>
+                    <div class="education-item">
+                        <div>
+                            <div class="education-name">CETIS 86</div>
+                            <div class="education-field">
+                                Mantenimiento industrial
+                            </div>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div>
+                            <div class="education-name">CECATI 137</div>
+                            <div class="education-field">Máquinas y herramientas</div>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div>
+                            <div class="education-name">Desarrollo De Software</div>
+                            <div class="education-field">Formación en curso</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">
+                        Habilidades de Desarrollo y Automatización
+                    </h2>
+                    <ul class="skills-list">
+                        <li class="skill-item">
+                            <div class="skill-category">Desarrollo Backend:</div>
+                            <div class="skill-details">
+                                Python, lógica de programación, automatización de
+                                tareas.
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-category">Bases de Datos:</div>
+                            <div class="skill-details">
+                                Diseño y consultas SQL (MySQL/PostgreSQL).
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-category">Desarrollo Web:</div>
+                            <div class="skill-details">
+                                HTML5, CSS3 para la construcción de interfaces
+                                frontend.
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-category">Control de Versiones:</div>
+                            <div class="skill-details">
+                                Git y GitHub para la gestión de proyectos.
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-category">Contexto Único:</div>
+                            <div class="skill-details">
+                                Experiencia práctica en entornos industriales, lo que
+                                proporciona una comprensión profunda de los procesos y
+                                sistemas que pueden ser optimizados mediante software
+                                y automatización.
+                            </div>
+                        </li>
+                    </ul>
                 </section>
             </div>
         </div>
